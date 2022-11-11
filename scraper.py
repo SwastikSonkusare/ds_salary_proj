@@ -18,7 +18,7 @@ def get_jobs(num_jobs, verbose):
     driver = webdriver.Chrome(
         executable_path="C:/Program Files/Chrome driver/chromedriver.exe", options=options)
     driver.set_window_size(1120, 1000)
-
+    
     url = 'https://www.glassdoor.co.in/Job/india-data-scientists-jobs-SRCH_IL.0,5_IN115_KO6,21.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword=&typedLocation=India&context=Jobs&dropdown=0'
 
 
@@ -249,3 +249,8 @@ def get_jobs(num_jobs, verbose):
 
     # This line converts the dictionary object into a pandas DataFrame.
     return pd.DataFrame(jobs)
+
+
+# df = get_jobs(500, False)
+
+df.to_csv('./glassdoor_jobs.csv')
