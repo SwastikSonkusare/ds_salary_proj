@@ -101,7 +101,7 @@ def get_jobs(num_jobs, verbose):
 
             try:
                 salary_estimate = driver.find_element(
-                    By.XPATH, value='//*[@id="JDCol"]/div/article/div/div[2]/div[1]/div[2]/div/div[1]/div[1]/div[1]').text
+                    By.XPATH, value='//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[1]/following-sibling::div[3]/span[1]').text
                 # print(f'Salary is {salary_estimate}')
             except NoSuchElementException:
                 salary_estimate = -1  # You need to set a "not found value. It's important."
@@ -251,6 +251,5 @@ def get_jobs(num_jobs, verbose):
     return pd.DataFrame(jobs)
 
 
-# df = get_jobs(500, False)
-
+df = get_jobs(1000, False)
 df.to_csv('./glassdoor_jobs.csv')
