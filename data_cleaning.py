@@ -28,6 +28,32 @@ df['company_age'] = pd.to_numeric(df['Founded'], errors='raise').apply(lambda x:
 
 #parsing of job desc(python, etc)
 
+#python
+df['python_yn'] = df['Job Description'].apply(lambda x: 1 if 'python' in x.lower() else 0)
+df.python_yn.value_counts()
+
+#r studio
+df['R_yn'] = df['Job Description'].apply(lambda x: 1 if 'r' in x.lower() else 0)
+
+#sql
+df['sql_yn'] = df['Job Description'].apply(lambda x: 1 if 'sql' in x.lower() else 0)
+
+#excel
+df['excel_yn'] = df['Job Description'].apply(lambda x: 1 if 'excel' in x.lower() else 0)
+
+
+#spark
+df['spark_yn'] = df['Job Description'].apply(lambda x: 1 if 'spark' in x.lower() else 0)
+
+df.to_csv('salary_clean_data.csv',  index=False)
+
+
+
+
+
+
+
+
 
 
 
