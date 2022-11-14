@@ -53,7 +53,3 @@ df.to_csv('salary_clean_data.csv',  index=False)
 
 
 
-
-
-
-
