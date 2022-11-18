@@ -43,10 +43,10 @@ X_train = scalar.transform(X_train)
 X_test = scalar.transform(X_test)
 # X_eval = scalar.transform(X_eval)
 
-model_lasso = Lasso()
-model_lasso.fit(X_train, y_train)
-scores = cross_val_score(model_lasso,X_train,y_train, scoring='neg_mean_squared_error', cv=5)
-np.mean(scores)
+# model_lasso = Lasso()
+# model_lasso.fit(X_train, y_train)
+# scores = cross_val_score(model_lasso,X_train,y_train, scoring='neg_mean_squared_error', cv=5)
+# np.mean(scores)
 
 alpha = []
 errors = []
@@ -81,8 +81,8 @@ mean_squared_error(y_test,y_pred)
 # linear regression
 model_lm = LinearRegression()
 
-scores = cross_validate(model_lm, X_train, y_train, scoring=['neg_mean_squared_error', 'neg_mean_absolute_error'], cv=5)
-scores = pd.DataFrame(scores)
+scores = cross_val_score(model_lm, X_train, y_train, scoring='neg_mean_squared_error', cv=5)
+scores = pd.Series(abs(scores.mean()))
 
 model_lm.fit(X_train, y_train)
 
@@ -90,6 +90,19 @@ y_final_test_pred = model_lm.predict(X_test)
 mean_squared_error(y_test,y_final_test_pred)
 
 
-# random forest
 # tune this models using GridSearchCV
+from sklearn.model_selection import GridSearchCV
+base_elastic_net_model = ElasticNetCV()
+param_grid = {'eps':[0.1,1,5,10,50,100], 'l1_ratio': [.1,.5,.95,.99,1]}
+
+grid_model = GridSearchCV(estimator=base_elastic_net_model, param_grid=param_grid, scoring='neg_mean_squared_error', cv=10, verbose=3)
+
+grid_model.fit(X_train, y_train)   
+scores = pd.DataFrame(grid_model.cv_results_)
+
+y_pred = grid_model.predict(X_test)
+mean_squared_error(y_test, y_pred)
+
+
+
 # test ensembles

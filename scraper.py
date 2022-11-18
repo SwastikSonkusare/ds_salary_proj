@@ -251,5 +251,5 @@ def get_jobs(num_jobs, verbose):
     return pd.DataFrame(jobs)
 
 
-df = get_jobs(1000, False)
-df.to_csv('./glassdoor_jobs.csv')
+df = get_jobs(1200, False)
+df.to_csv('./glassdoor_jobs_1.csv')
