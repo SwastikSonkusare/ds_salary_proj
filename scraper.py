@@ -2,6 +2,7 @@ from selenium.common.exceptions import NoSuchElementException, ElementClickInter
 from selenium import webdriver
 import time
 import pandas as pd
+import numpy as np
 from selenium.webdriver.common.by import By
 
 
@@ -104,7 +105,7 @@ def get_jobs(num_jobs, verbose):
                     By.XPATH, value='//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[1]/following-sibling::div[3]/span[1]').text
                 # print(f'Salary is {salary_estimate}')
             except NoSuchElementException:
-                salary_estimate = -1  # You need to set a "not found value. It's important."
+                salary_estimate = np.NaN  # You need to set a "not found value. It's important."
                 print("Salary not found")
 
             try:
@@ -112,7 +113,7 @@ def get_jobs(num_jobs, verbose):
                     By.XPATH, '//*[@id="employerStats"]/div[1]/div[1]').text
                 # print(f'Rating is {rating}')
             except NoSuchElementException:
-                rating = -1  # You need to set a "not found value. It's important."
+                rating =  np.NaN  # You need to set a "not found value. It's important."
                 print("Rating not found")
 
             # Printing for debugging
@@ -130,26 +131,13 @@ def get_jobs(num_jobs, verbose):
 # Company
 
             try:
-                # driver.find_element(by=By.XPATH, value='.//div[@class="tab" and @data-tab-type="overview"]').click()
-                # try:
-                #
-
-                #    Headquarters
-                #    San Francisco, CA
-                #
-
-                #     headquarters = driver.find_element(
-                #         by=By.XPATH, value='.//div[@class="infoEntity"]//label[text()="Headquarters"]//following-sibling::*').text
-                # except NoSuchElementException:
-                #     headquarters = -1
-
                 try:
                     # size = driver.find_element(by=By.XPATH, value='.//div[@class="infoEntity"]//label[text()="Size"]//following-sibling::*').text
                     size = driver.find_element(
                         by=By.XPATH, value='//*[@id="EmpBasicInfo"]/div[1]/div[1]/div[1]/span[2]').text
                 except NoSuchElementException:
                     print("size not found")
-                    size = -1
+                    size = np.NaN
                 try:
                     # founded = driver.find_element(
                     #     by=By.XPATH, value='.//div[@class="infoEntity"]//label[text()="Founded"]//following-sibling::*').text
@@ -157,7 +145,7 @@ def get_jobs(num_jobs, verbose):
                         by=By.XPATH, value='//*[@id="EmpBasicInfo"]/div[1]/div[1]/div[2]/span[2]').text
                 except NoSuchElementException:
                     print("founded not found")
-                    founded = -1
+                    founded = np.NaN
 
                 try:
                     # type_of_ownership = driver.find_element(
@@ -166,7 +154,7 @@ def get_jobs(num_jobs, verbose):
                         by=By.XPATH, value='//*[@id="EmpBasicInfo"]/div[1]/div[1]/div[3]/span[2]').text
                 except NoSuchElementException:
                     print("ownership not found")
-                    type_of_ownership = -1
+                    type_of_ownership = np.NaN
 
                 try:
                     # industry = driver.find_element(
@@ -175,7 +163,7 @@ def get_jobs(num_jobs, verbose):
                         by=By.XPATH, value='//*[@id="EmpBasicInfo"]/div[1]/div[1]/div[4]/span[2]').text
                 except NoSuchElementException:
                     print("industry not found")
-                    industry = -1
+                    industry =  np.NaN
 
                 try:
                     # sector = driver.find_element(
@@ -184,7 +172,7 @@ def get_jobs(num_jobs, verbose):
                         by=By.XPATH, value='//*[@id="EmpBasicInfo"]/div[1]/div[1]/div[5]/span[2]').text
                 except NoSuchElementException:
                     print("sector not found")
-                    sector = -1
+                    sector =  np.NaN
 
                 try:
                     # revenue = driver.find_element(
@@ -192,24 +180,16 @@ def get_jobs(num_jobs, verbose):
                     revenue = driver.find_element(
                         by=By.XPATH, value='//*[@id="EmpBasicInfo"]/div[1]/div[1]/div[6]/span[2]').text
                 except NoSuchElementException:
-                    revenue = -1
-
-                # try:
-                #     competitors = driver.find_element(
-                #         by=By.XPATH, value='.//div[@class="infoEntity"]//label[text()="Competitors"]//following-sibling::*').text
-                # except NoSuchElementException:
-                #     competitors = -1
+                    revenue =  np.NaN
 
             # Rarely, some job postings do not have the "Company" tab.
             except NoSuchElementException:
-                # headquarters = -1
-                size = -1
-                founded = -1
-                type_of_ownership = -1
-                industry = -1
-                sector = -1
-                revenue = -1
-                # competitors = -1
+                size =  np.NaN
+                founded =  np.NaN
+                type_of_ownership =  np.NaN
+                industry =  np.NaN
+                sector =  np.NaN
+                revenue =  np.NaN
 
             if verbose:
                 # print("Headquarters: {}".format(headquarters))
@@ -252,4 +232,4 @@ def get_jobs(num_jobs, verbose):
 
 
 df = get_jobs(1200, False)
-df.to_csv('./glassdoor_jobs_1.csv')
+df.to_csv('./glassdoor_jobs_3.csv')
